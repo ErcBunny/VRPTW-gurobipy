@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+    <info>
+        <dataset>simple</dataset>
+        <name>Tight_TW</name>
+    </info>
+    <network>
+        <nodes>
+            <node id="0" type="0">
+                <cx>0.0</cx>
+                <cy>0.0</cy>
+            </node>
+            <node id="1" type="1">
+                <cx>10.0</cx>
+                <cy>0.0</cy>
+            </node>
+            <node id="2" type="1">
+                <cx>0.0</cx>
+                <cy>10.0</cy>
+            </node>
+            <node id="3" type="1">
+                <cx>-10.0</cx>
+                <cy>-10.0</cy>
+            </node>
+        </nodes>
+        <euclidean/>
+        <decimals>0</decimals>
+    </network>
+    <fleet>
+        <vehicle_profile type="0" number="2">
+            <departure_node>0</departure_node>
+            <arrival_node>0</arrival_node>
+            <capacity>200.0</capacity>
+            <max_travel_time>100.0</max_travel_time>
+        </vehicle_profile>
+    </fleet>
+    <requests>
+        <request id="1" node="1">
+            <tw>
+                <start>10</start>
+                <end>20</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>10.0</service_time>
+        </request>
+        <request id="2" node="2">
+            <tw>
+                <start>20</start>
+                <end>30</end>
+            </tw>
+            <quantity>7.0</quantity>
+            <service_time>10.0</service_time>
+        </request>
+        <request id="3" node="3">
+            <tw>
+                <start>20</start>
+                <end>30</end>
+            </tw>
+            <quantity>13.0</quantity>
+            <service_time>10.0</service_time>
+        </request>
+    </requests>
+</instance>
