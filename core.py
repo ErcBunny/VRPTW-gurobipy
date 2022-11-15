@@ -1,4 +1,18 @@
-def solve_VRPTW(coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity, cost_per_distance, time_per_distance, big_m):
+from gurobipy import Model, GRB, quicksum
+import numpy as np
+import xml.etree.ElementTree as ET
+
+def solve_VRPTW(
+    coordinate: np.ndarray,
+    time_window: np.ndarray,
+    demand: np.ndarray,
+    service_duration: np.ndarray,
+    vehicle_quantity: int,
+    vehicle_capacity: float,
+    cost_per_distance: float,
+    time_per_distance: float,
+    big_m: float
+):
     """
     node quantity = customer quantity + 2 = n + 2
 
@@ -6,12 +20,9 @@ def solve_VRPTW(coordinate, time_window, demand, service_duration, vehicle_quant
 
     time window for node 0 should be [0, 0] and for node n + 1 should be [0, max operating time]
 
-    return: is_feasible, objective value, arcs matrix, arrival time matrixd
+    return: is_feasible, objective value, arc matrix, arrival time matrixd
 
     """
-
-    from gurobipy import Model, GRB, quicksum
-    import numpy as np
 
     node_quantity = coordinate.shape[0]
     customer_quantity = node_quantity - 2
@@ -53,14 +64,15 @@ def solve_VRPTW(coordinate, time_window, demand, service_duration, vehicle_quant
 
     is_feasible = True
     obj = 0
-    result_arcs = np.zeros([vehicle_quantity, node_quantity, node_quantity], dtype=int)
+    runtime = 0
+    result_arc = np.zeros([vehicle_quantity, node_quantity, node_quantity], dtype=int)
     result_arrival_time = np.zeros([node_quantity, vehicle_quantity])
 
     for k in V:
         for i in N:
             for j in N:
                 try:
-                    result_arcs[k, i, j] = round(x[i, j, k].X)
+                    result_arc[k, i, j] = round(x[i, j, k].X)
                 except:
                     is_feasible = False
                     break
@@ -75,13 +87,15 @@ def solve_VRPTW(coordinate, time_window, demand, service_duration, vehicle_quant
 
     try:
         obj = model.getObjective().getValue()
+        runtime = model.Runtime
     except:
         is_feasible = False
 
-    return is_feasible, obj, result_arcs, result_arrival_time
+
+    return is_feasible, obj, result_arc, result_arrival_time, runtime
 
 
-def load_data(xmlpath):
+def load_dataset(xmlpath: str):
     """
     get processed (node 0 and node n + 1 added) matrices from xml datasets
 
@@ -90,15 +104,12 @@ def load_data(xmlpath):
     return: coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity
 
     """
-
-    import numpy as np
-    import xml.etree.ElementTree as ET
     
     try:
         tree = ET.parse(xmlpath)
     except:
         print("Cannot find file")
-        return
+        exit()
     
     root = tree.getroot()
 
@@ -113,8 +124,8 @@ def load_data(xmlpath):
     coordinate = np.vstack((coordinate, coordinate[0, :]))
 
     time_window = np.zeros([1, 2])
-    demand = np.array([0])
-    service_duration = np.array([0])
+    demand = np.array(0)
+    service_duration = np.array(0)
     for request in root.iter("request"):
         time_window = np.vstack((
             time_window,
@@ -131,3 +142,120 @@ def load_data(xmlpath):
     vehicle_capacity = float(root.find("fleet").find("vehicle_profile").find("capacity").text)
 
     return coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity
+
+
+def save_raw_result(
+    name: str,
+    is_feasible: bool,
+    objective_value: float,
+    arc: np.ndarray,
+    arrival_time: np.ndarray,
+    coordinate: np.ndarray,
+    time_window: np.ndarray,
+    demand: np.ndarray,
+    service_duration: np.ndarray,
+    vehicle_quantity: int,
+    vehicle_capacity: float,
+    cost_per_distance: float,
+    time_per_distance: float,
+    solver_runtime: float
+):
+
+    node_quantity = coordinate.shape[0]
+    customer_quantity = node_quantity - 2
+    N = range(node_quantity)
+    C = range(1, customer_quantity + 1)
+    V = range(vehicle_quantity)
+
+    f = open("./result/" + name + ".txt", "w")
+    print(name, file=f)
+    print(is_feasible, file=f)
+    print(objective_value, file=f)
+    print(node_quantity, file=f)
+    print(vehicle_quantity, file=f)
+    print(vehicle_capacity, file=f)
+    print(cost_per_distance, file=f)
+    print(time_per_distance, file=f)
+    print(solver_runtime, file=f)
+
+    for k in V:
+        for i in N:
+            for j in N:
+                print(arc[k, i, j], file=f)
+
+    for k in V:
+        for i in N:
+            print(arrival_time[i, k], file=f)
+
+    for i in N:
+        print(coordinate[i, 0], file=f)
+        print(coordinate[i, 1], file=f)
+
+    for i in N:
+        print(time_window[i, 0], file=f)
+        print(time_window[i, 1], file=f)
+
+    for i in N:
+        print(demand[i], file=f)
+
+    for i in N:
+        print(service_duration[i], file=f)
+
+    f.close()
+        
+
+def load_raw_result(txtpath: str):
+
+    try:
+        f = open(txtpath)
+    except:
+        print("Cannot find file")
+        exit()
+
+    name = str(f.readline().strip("\n"))
+    is_feasible = bool(f.readline())
+    objective_value = float(f.readline())
+    node_quantity = int(f.readline())
+    vehicle_quantity = int(f.readline())
+    vehicle_capacity = float(f.readline())
+    cost_per_distance = float(f.readline())
+    time_per_distance = float(f.readline())
+    solver_runtime = float(f.readline())
+
+    customer_quantity = node_quantity - 2
+    N = range(node_quantity)
+    C = range(1, customer_quantity + 1)
+    V = range(vehicle_quantity)
+
+    arc = np.zeros([vehicle_quantity, node_quantity, node_quantity], dtype=int)
+    for k in V:
+        for i in N:
+            for j in N:
+                arc[k, i, j] = int(f.readline())
+
+    arrival_time = np.zeros([node_quantity, vehicle_quantity])
+    for k in V:
+        for i in N:
+            arrival_time[i, k] = float(f.readline())
+
+    coordinate = np.zeros([node_quantity, 2])
+    for i in N:
+        coordinate[i, 0] = float(f.readline())
+        coordinate[i, 1] = float(f.readline())
+        
+    time_window = np.zeros([node_quantity, 2])
+    for i in N:
+        time_window[i, 0] = float(f.readline())
+        time_window[i, 1] = float(f.readline())
+
+    demand = np.zeros(node_quantity)
+    for i in N:
+        demand[i] = f.readline()
+
+    service_duration = np.zeros(node_quantity)
+    for i in N:
+        service_duration[i] = f.readline()
+
+    f.close()
+
+    return name, is_feasible, objective_value, arc, arrival_time, coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity, cost_per_distance, time_per_distance, solver_runtime
