@@ -167,7 +167,7 @@ def save_raw_result(
     C = range(1, customer_quantity + 1)
     V = range(vehicle_quantity)
 
-    f = open("./result/" + name + ".txt", "w")
+    f = open("./result/raw-" + name + ".txt", "w")
     print(name, file=f)
     print(is_feasible, file=f)
     print(objective_value, file=f)

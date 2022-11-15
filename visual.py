@@ -1,8 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def save_pretty_result(
-    filepath: str,
+def pretty_print(
+    title: str,
+    customer_quantity: int,
     is_feasible: bool,
     objective_value: float,
     vehicle_quantity: float,
@@ -10,15 +11,44 @@ def save_pretty_result(
     cost_per_distance: float,
     time_per_distance: float,
     solver_runtime: float,
-    arrival_time_reordered: list,
-    coordinate_reordered: list,
-    time_window_reordered: list,
-    demand_reordered: list,
-    service_duration_reordered: list,
-    node_sequence: list
+    chrono_info: list
 ):
 
-    todo = True
+    V = range(vehicle_quantity)
+
+    f = open("./result/pretty-" + title + ".txt", "w")
+    print(title, file=f)
+    print("====================================================================================", file=f)
+    print("customer quantity:", customer_quantity, file=f)
+    print("vehicle quantity:", vehicle_quantity, file=f)
+    print("vehicle capacity:", vehicle_capacity, file=f)
+    print("cost per distance:", cost_per_distance, file=f)
+    print("time per distance:", time_per_distance, file=f)
+    print("====================================================================================", file=f)
+    print("feasibile:", is_feasible, file=f)
+    print("solver runtime:", solver_runtime, file=f)
+    if(is_feasible):
+        print("objective function value:", objective_value, file=f)
+        print("====================================================================================", file=f)
+        # print("| vehicle no. |  time  | node no. | cargo |  X  |  Y  |", file=f)
+        print("{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format("|vehicle no.", "|time", "|node no.", "|cargo", "|X", "|Y"), file=f)
+        print("------------------------------------------------------------------------------------", file=f)
+        for k in V:
+            if(chrono_info[k].shape[0] > 2):
+                for i in range(chrono_info[k].shape[0]):
+                    print(
+                        "{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format(
+                            "|" + str(k),
+                            "|" + str(round(chrono_info[k][i, 0], 3)),
+                            "|" + str(int(chrono_info[k][i, 1])),
+                            "|" + str(chrono_info[k][i, 2]),
+                            "|" + str(chrono_info[k][i, 3]),
+                            "|" + str(chrono_info[k][i, 4])
+                        ),
+                        file=f
+                    )
+                print("------------------------------------------------------------------------------------", file=f)
+    
 
 
 def plot_solution(
@@ -49,11 +79,12 @@ def plot_solution(
     node_quantity = coordinate.shape[0]
     customer_quantity = node_quantity - 2
     N = range(node_quantity)
-    C = range(1, customer_quantity + 1)
     V = range(vehicle_quantity)
 
     plt.figure(title)
     M = ["o", "s", "D", "P", "X", "^", "v"]
+
+    chrono_info = []
 
     if(is_feasible):
 
@@ -75,10 +106,12 @@ def plot_solution(
             node_sequence.append(np.array(i))
 
             while(i != N[-1]):
+
                 for j in N:
                     if(arc[k, i, j] == 1):
                         i = j
                         break
+                
                 coordinate_reordered[k] = np.vstack((coordinate_reordered[k], coordinate[i, :]))
                 time_window_reordered[k] = np.vstack((time_window_reordered[k], time_window[i, :]))
                 demand_reordered[k] = np.append(demand_reordered[k], demand[i])
@@ -92,25 +125,75 @@ def plot_solution(
             x = coordinate_reordered[k][:, 0]
             y = coordinate_reordered[k][:, 1]
             if(x.shape[0] > 2):
+                plt.subplot(1, 3, 1)
                 plt.plot(x, y, label="vehicle " + str(k), marker=M[k // 10])
 
-        plt.title("Objective Value: " + str(round(objective_value, 2)))
-        plt.legend()
+        for k in V:
+            
+            init_cargo = np.sum(demand_reordered[k])
+            chrono_info.append(np.zeros([2 * (node_sequence[k].shape[0] - 2) + 2, 5]))
+            chrono_info[k][0, :] = np.array([0, 0, init_cargo, coordinate_reordered[k][0, 0], coordinate_reordered[k][0, 1]])
+
+            for i in range(node_sequence[k].shape[0] - 2):
+                chrono_info[k][1 + 2 * i, :] = np.array(
+                    [arrival_time_reordered[k][i + 1], node_sequence[k][i + 1], chrono_info[k][2 * i, 2], coordinate_reordered[k][i + 1, 0], coordinate_reordered[k][i + 1, 1]]
+                )
+                chrono_info[k][2 + 2 * i, :] = chrono_info[k][1 + 2 * i, :] + np.array([service_duration_reordered[k][i + 1], 0, -demand_reordered[k][i + 1], 0, 0])
+
+            chrono_info[k][-1, :] = np.array([arrival_time_reordered[k][-1], 0, 0, coordinate_reordered[k][0, 0], coordinate_reordered[k][0, 1]])
+
+            t = chrono_info[k][:, 0]
+            node = chrono_info[k][:, 1]
+            cargo = chrono_info[k][:, 2]
+            if(t.shape[0] > 2):
+                plt.subplot(1, 3, 2)
+                plt.plot(t, node, label="vehicle " + str(k), marker=M[k // 10])
+                plt.legend(loc="upper right")
+                plt.subplot(1, 3, 3)
+                plt.plot(t, cargo, label="vehicle " + str(k), marker=M[k // 10])
+                plt.legend(loc="upper right")
+
+
+        plt.subplot(1, 3, 1)
+        plt.legend(loc="upper right")
 
     else:
 
         x = coordinate[:, 0]
         y = coordinate[:, 1]
+        plt.subplot(1, 3, 1)
         plt.plot(x, y, "o")
-        plt.title("Problem not feasible")
-    
+
+    pretty_print(
+        title,
+        customer_quantity,
+        is_feasible,
+        objective_value,
+        vehicle_quantity,
+        vehicle_capacity,
+        cost_per_distance,
+        time_per_distance,
+        solver_runtime,
+        chrono_info
+    )
+
+    plt.subplot(1, 3, 1)
     plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
     plt.grid(True)
     plt.xlabel("X")
     plt.ylabel("Y")
+    plt.title("Activated Arcs")
 
-    save_pretty_result(
-        "./result/" + title + "-pretty.txt",
-        
-    )
+    plt.subplot(1, 3, 2)
+    plt.grid(True)
+    plt.xlabel("t")
+    plt.ylabel("Node")
+    plt.title("Node - Time")
+
+    plt.subplot(1, 3, 3)
+    plt.grid(True)
+    plt.xlabel("t")
+    plt.ylabel("Cargo")
+    plt.title("Cargo - Time")
+
     plt.show()
