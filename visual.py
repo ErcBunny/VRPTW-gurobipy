@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 def pretty_print(
     title: str,
@@ -16,6 +17,8 @@ def pretty_print(
 
     V = range(vehicle_quantity)
 
+    if(not os.path.exists("./result")):
+        os.mkdir("result")
     f = open("./result/pretty-" + title + ".txt", "w")
     print(title, file=f)
     print("====================================================================================", file=f)

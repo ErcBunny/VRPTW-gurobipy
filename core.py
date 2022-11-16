@@ -1,6 +1,7 @@
 from gurobipy import Model, GRB, quicksum
 import numpy as np
 import xml.etree.ElementTree as ET
+import os
 
 def solve_VRPTW(
     coordinate: np.ndarray,
@@ -167,6 +168,8 @@ def save_raw_result(
     C = range(1, customer_quantity + 1)
     V = range(vehicle_quantity)
 
+    if(not os.path.exists("./result")):
+        os.mkdir("result")
     f = open("./result/raw-" + name + ".txt", "w")
     print(name, file=f)
     print(is_feasible, file=f)
