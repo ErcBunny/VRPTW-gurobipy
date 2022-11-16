@@ -30,7 +30,6 @@ def pretty_print(
     if(is_feasible):
         print("objective function value:", objective_value, file=f)
         print("====================================================================================", file=f)
-        # print("| vehicle no. |  time  | node no. | cargo |  X  |  Y  |", file=f)
         print("{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format("|vehicle no.", "|time", "|node no.", "|cargo", "|X", "|Y"), file=f)
         print("------------------------------------------------------------------------------------", file=f)
         for k in V:
