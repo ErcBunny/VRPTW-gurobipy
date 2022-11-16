@@ -43,13 +43,4 @@ if __name__ == "__main__":
     p2.join()
     p3.join()
 
-    # solve datasets
-    for i in range(1, 13):
-        print("====================================================\n", i, "\n====================================================")
-        if i < 10:
-            solve_and_save("./dataset/solomon-1987-r1/R10" + str(i) + "_025.xml", 1, 1, 1e6, "R10" + str(i) + "_025")
-        else:
-            solve_and_save("./dataset/solomon-1987-r1/R1" + str(i) + "_025.xml", 1, 1, 1e6, "R1" + str(i) + "_025")
-
-    todo = True
     
