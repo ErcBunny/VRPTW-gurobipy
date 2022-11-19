@@ -3,6 +3,7 @@ import numpy as np
 import xml.etree.ElementTree as ET
 import os
 
+
 def solve_VRPTW(
     coordinate: np.ndarray,
     time_window: np.ndarray,
@@ -12,7 +13,8 @@ def solve_VRPTW(
     vehicle_capacity: float,
     cost_per_distance: float,
     time_per_distance: float,
-    big_m: float
+    big_m: float,
+    timelimit: float
 ):
     """
     node quantity = customer quantity + 2 = n + 2
@@ -61,11 +63,13 @@ def solve_VRPTW(
     model.addConstrs(s[i, k] <= time_window[i, 1] for i in N for k in V)
     model.addConstrs(s[i, k] + travel_time[i, j] + service_duration[i] - big_m * (1 - x[i, j, k]) <= s[j, k] for i in N for j in N for k in V)
 
+    model.Params.Timelimit = timelimit
     model.optimize()
 
     is_feasible = True
     obj = 0
-    runtime = 0
+    runtime = model.Runtime
+    mip_gap = GRB.INFINITY
     result_arc = np.zeros([vehicle_quantity, node_quantity, node_quantity], dtype=int)
     result_arrival_time = np.zeros([node_quantity, vehicle_quantity])
 
@@ -88,12 +92,12 @@ def solve_VRPTW(
 
     try:
         obj = model.getObjective().getValue()
-        runtime = model.Runtime
+        mip_gap = model.MIPGap
     except:
         is_feasible = False
 
 
-    return is_feasible, obj, result_arc, result_arrival_time, runtime
+    return is_feasible, obj, result_arc, result_arrival_time, runtime, mip_gap
 
 
 def load_dataset(xmlpath: str):
@@ -159,7 +163,8 @@ def save_raw_result(
     vehicle_capacity: float,
     cost_per_distance: float,
     time_per_distance: float,
-    solver_runtime: float
+    solver_runtime: float,
+    mip_gap: float
 ):
 
     node_quantity = coordinate.shape[0]
@@ -174,6 +179,7 @@ def save_raw_result(
     print(name, file=f)
     print(is_feasible, file=f)
     print(objective_value, file=f)
+    print(mip_gap, file=f)
     print(node_quantity, file=f)
     print(vehicle_quantity, file=f)
     print(vehicle_capacity, file=f)
@@ -216,8 +222,9 @@ def load_raw_result(txtpath: str):
         exit()
 
     name = str(f.readline().strip("\n"))
-    is_feasible = bool(f.readline())
+    is_feasible = bool(f.readline().strip("\n") == "True")
     objective_value = float(f.readline())
+    mip_gap = float(f.readline())
     node_quantity = int(f.readline())
     vehicle_quantity = int(f.readline())
     vehicle_capacity = float(f.readline())
@@ -261,4 +268,4 @@ def load_raw_result(txtpath: str):
 
     f.close()
 
-    return name, is_feasible, objective_value, arc, arrival_time, coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity, cost_per_distance, time_per_distance, solver_runtime
+    return name, is_feasible, objective_value, arc, arrival_time, coordinate, time_window, demand, service_duration, vehicle_quantity, vehicle_capacity, cost_per_distance, time_per_distance, solver_runtime, mip_gap

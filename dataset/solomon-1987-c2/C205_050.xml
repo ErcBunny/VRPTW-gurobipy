@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<instance>
+    <info>
+        <dataset>Solomon 1987 — Set C2</dataset>
+        <name>C205_050</name>
+    </info>
+    <network>
+        <nodes>
+            <node id="0" type="0">
+                <cx>40.0</cx>
+                <cy>50.0</cy>
+            </node>
+            <node id="1" type="1">
+                <cx>52.0</cx>
+                <cy>75.0</cy>
+            </node>
+            <node id="2" type="1">
+                <cx>45.0</cx>
+                <cy>70.0</cy>
+            </node>
+            <node id="3" type="1">
+                <cx>62.0</cx>
+                <cy>69.0</cy>
+            </node>
+            <node id="4" type="1">
+                <cx>60.0</cx>
+                <cy>66.0</cy>
+            </node>
+            <node id="5" type="1">
+                <cx>42.0</cx>
+                <cy>65.0</cy>
+            </node>
+            <node id="6" type="1">
+                <cx>16.0</cx>
+                <cy>42.0</cy>
+            </node>
+            <node id="7" type="1">
+                <cx>58.0</cx>
+                <cy>70.0</cy>
+            </node>
+            <node id="8" type="1">
+                <cx>34.0</cx>
+                <cy>60.0</cy>
+            </node>
+            <node id="9" type="1">
+                <cx>28.0</cx>
+                <cy>70.0</cy>
+            </node>
+            <node id="10" type="1">
+                <cx>35.0</cx>
+                <cy>66.0</cy>
+            </node>
+            <node id="11" type="1">
+                <cx>35.0</cx>
+                <cy>69.0</cy>
+            </node>
+            <node id="12" type="1">
+                <cx>25.0</cx>
+                <cy>85.0</cy>
+            </node>
+            <node id="13" type="1">
+                <cx>22.0</cx>
+                <cy>75.0</cy>
+            </node>
+            <node id="14" type="1">
+                <cx>22.0</cx>
+                <cy>85.0</cy>
+            </node>
+            <node id="15" type="1">
+                <cx>20.0</cx>
+                <cy>80.0</cy>
+            </node>
+            <node id="16" type="1">
+                <cx>20.0</cx>
+                <cy>85.0</cy>
+            </node>
+            <node id="17" type="1">
+                <cx>18.0</cx>
+                <cy>75.0</cy>
+            </node>
+            <node id="18" type="1">
+                <cx>15.0</cx>
+                <cy>75.0</cy>
+            </node>
+            <node id="19" type="1">
+                <cx>15.0</cx>
+                <cy>80.0</cy>
+            </node>
+            <node id="20" type="1">
+                <cx>30.0</cx>
+                <cy>50.0</cy>
+            </node>
+            <node id="21" type="1">
+                <cx>30.0</cx>
+                <cy>56.0</cy>
+            </node>
+            <node id="22" type="1">
+                <cx>28.0</cx>
+                <cy>52.0</cy>
+            </node>
+            <node id="23" type="1">
+                <cx>14.0</cx>
+                <cy>66.0</cy>
+            </node>
+            <node id="24" type="1">
+                <cx>25.0</cx>
+                <cy>50.0</cy>
+            </node>
+            <node id="25" type="1">
+                <cx>22.0</cx>
+                <cy>66.0</cy>
+            </node>
+            <node id="26" type="1">
+                <cx>8.0</cx>
+                <cy>62.0</cy>
+            </node>
+            <node id="27" type="1">
+                <cx>23.0</cx>
+                <cy>52.0</cy>
+            </node>
+            <node id="28" type="1">
+                <cx>4.0</cx>
+                <cy>55.0</cy>
+            </node>
+            <node id="29" type="1">
+                <cx>20.0</cx>
+                <cy>50.0</cy>
+            </node>
+            <node id="30" type="1">
+                <cx>20.0</cx>
+                <cy>55.0</cy>
+            </node>
+            <node id="31" type="1">
+                <cx>10.0</cx>
+                <cy>35.0</cy>
+            </node>
+            <node id="32" type="1">
+                <cx>10.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="33" type="1">
+                <cx>8.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="34" type="1">
+                <cx>8.0</cx>
+                <cy>45.0</cy>
+            </node>
+            <node id="35" type="1">
+                <cx>5.0</cx>
+                <cy>35.0</cy>
+            </node>
+            <node id="36" type="1">
+                <cx>5.0</cx>
+                <cy>45.0</cy>
+            </node>
+            <node id="37" type="1">
+                <cx>2.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="38" type="1">
+                <cx>0.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="39" type="1">
+                <cx>0.0</cx>
+                <cy>45.0</cy>
+            </node>
+            <node id="40" type="1">
+                <cx>36.0</cx>
+                <cy>18.0</cy>
+            </node>
+            <node id="41" type="1">
+                <cx>35.0</cx>
+                <cy>32.0</cy>
+            </node>
+            <node id="42" type="1">
+                <cx>33.0</cx>
+                <cy>32.0</cy>
+            </node>
+            <node id="43" type="1">
+                <cx>33.0</cx>
+                <cy>35.0</cy>
+            </node>
+            <node id="44" type="1">
+                <cx>32.0</cx>
+                <cy>20.0</cy>
+            </node>
+            <node id="45" type="1">
+                <cx>30.0</cx>
+                <cy>30.0</cy>
+            </node>
+            <node id="46" type="1">
+                <cx>34.0</cx>
+                <cy>25.0</cy>
+            </node>
+            <node id="47" type="1">
+                <cx>30.0</cx>
+                <cy>35.0</cy>
+            </node>
+            <node id="48" type="1">
+                <cx>36.0</cx>
+                <cy>40.0</cy>
+            </node>
+            <node id="49" type="1">
+                <cx>48.0</cx>
+                <cy>20.0</cy>
+            </node>
+            <node id="50" type="1">
+                <cx>26.0</cx>
+                <cy>32.0</cy>
+            </node>
+        </nodes>
+        <euclidean/>
+        <decimals>0</decimals>
+    </network>
+    <fleet>
+        <vehicle_profile type="0" number="25">
+            <departure_node>0</departure_node>
+            <arrival_node>0</arrival_node>
+            <capacity>700.0</capacity>
+            <max_travel_time>3390.0</max_travel_time>
+        </vehicle_profile>
+    </fleet>
+    <requests>
+        <request id="1" node="1">
+            <tw>
+                <start>231</start>
+                <end>551</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="2" node="2">
+            <tw>
+                <start>133</start>
+                <end>453</end>
+            </tw>
+            <quantity>30.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="3" node="3">
+            <tw>
+                <start>1087</start>
+                <end>1407</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="4" node="4">
+            <tw>
+                <start>1181</start>
+                <end>1501</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="5" node="5">
+            <tw>
+                <start>15</start>
+                <end>335</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="6" node="6">
+            <tw>
+                <start>417</start>
+                <end>737</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="7" node="7">
+            <tw>
+                <start>993</start>
+                <end>1313</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="8" node="8">
+            <tw>
+                <start>2807</start>
+                <end>3127</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="9" node="9">
+            <tw>
+                <start>2521</start>
+                <end>2841</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="10" node="10">
+            <tw>
+                <start>2711</start>
+                <end>3031</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="11" node="11">
+            <tw>
+                <start>2618</start>
+                <end>2938</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="12" node="12">
+            <tw>
+                <start>2039</start>
+                <end>2359</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="13" node="13">
+            <tw>
+                <start>2325</start>
+                <end>2645</end>
+            </tw>
+            <quantity>30.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="14" node="14">
+            <tw>
+                <start>1946</start>
+                <end>2266</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="15" node="15">
+            <tw>
+                <start>2136</start>
+                <end>2456</end>
+            </tw>
+            <quantity>40.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="16" node="16">
+            <tw>
+                <start>1854</start>
+                <end>2174</end>
+            </tw>
+            <quantity>40.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="17" node="17">
+            <tw>
+                <start>2231</start>
+                <end>2551</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="18" node="18">
+            <tw>
+                <start>1662</start>
+                <end>1982</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="19" node="19">
+            <tw>
+                <start>1757</start>
+                <end>2077</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="20" node="20">
+            <tw>
+                <start>10</start>
+                <end>330</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="21" node="21">
+            <tw>
+                <start>2903</start>
+                <end>3223</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="22" node="22">
+            <tw>
+                <start>12</start>
+                <end>332</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="23" node="23">
+            <tw>
+                <start>1563</start>
+                <end>1883</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="24" node="24">
+            <tw>
+                <start>36</start>
+                <end>356</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="25" node="25">
+            <tw>
+                <start>2424</start>
+                <end>2744</end>
+            </tw>
+            <quantity>40.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="26" node="26">
+            <tw>
+                <start>1465</start>
+                <end>1785</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="27" node="27">
+            <tw>
+                <start>129</start>
+                <end>449</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="28" node="28">
+            <tw>
+                <start>1367</start>
+                <end>1687</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="29" node="29">
+            <tw>
+                <start>318</start>
+                <end>638</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="30" node="30">
+            <tw>
+                <start>223</start>
+                <end>543</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="31" node="31">
+            <tw>
+                <start>701</start>
+                <end>1021</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="32" node="32">
+            <tw>
+                <start>513</start>
+                <end>833</end>
+            </tw>
+            <quantity>30.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="33" node="33">
+            <tw>
+                <start>605</start>
+                <end>925</end>
+            </tw>
+            <quantity>40.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="34" node="34">
+            <tw>
+                <start>1266</start>
+                <end>1586</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="35" node="35">
+            <tw>
+                <start>796</start>
+                <end>1116</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="36" node="36">
+            <tw>
+                <start>1173</start>
+                <end>1493</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="37" node="37">
+            <tw>
+                <start>891</start>
+                <end>1211</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="38" node="38">
+            <tw>
+                <start>983</start>
+                <end>1303</end>
+            </tw>
+            <quantity>30.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="39" node="39">
+            <tw>
+                <start>1078</start>
+                <end>1398</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="40" node="40">
+            <tw>
+                <start>1739</start>
+                <end>2059</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="41" node="41">
+            <tw>
+                <start>2678</start>
+                <end>2998</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="42" node="42">
+            <tw>
+                <start>2586</start>
+                <end>2906</end>
+            </tw>
+            <quantity>20.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="43" node="43">
+            <tw>
+                <start>2493</start>
+                <end>2813</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="44" node="44">
+            <tw>
+                <start>1833</start>
+                <end>2153</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="45" node="45">
+            <tw>
+                <start>2025</start>
+                <end>2345</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="46" node="46">
+            <tw>
+                <start>1929</start>
+                <end>2249</end>
+            </tw>
+            <quantity>30.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="47" node="47">
+            <tw>
+                <start>2400</start>
+                <end>2720</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="48" node="48">
+            <tw>
+                <start>2776</start>
+                <end>3096</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="49" node="49">
+            <tw>
+                <start>887</start>
+                <end>1207</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+        <request id="50" node="50">
+            <tw>
+                <start>2212</start>
+                <end>2532</end>
+            </tw>
+            <quantity>10.0</quantity>
+            <service_time>90.0</service_time>
+        </request>
+    </requests>
+</instance>

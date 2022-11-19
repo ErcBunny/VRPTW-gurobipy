@@ -3,12 +3,13 @@ TW60-TPD1.0
 customer quantity: 3
 vehicle quantity: 2
 vehicle capacity: 200.0
-cost per distance: 1
+cost per distance: 1.0
 time per distance: 1.0
 ====================================================================================
 feasibile: True
-solver runtime: 0.0012090206146240234
+solver runtime: 0.0014560222625732422
 objective function value: 66.50281539872884
+MIP gap: 0.0
 ====================================================================================
 |vehicle no.  |time         |node no.     |cargo        |X            |Y           
 ------------------------------------------------------------------------------------

@@ -3,12 +3,13 @@ TW10-TPD0.5
 customer quantity: 3
 vehicle quantity: 2
 vehicle capacity: 200.0
-cost per distance: 1
+cost per distance: 1.0
 time per distance: 0.5
 ====================================================================================
 feasibile: True
-solver runtime: 0.0012140274047851562
+solver runtime: 0.0009210109710693359
 objective function value: 62.42640687119285
+MIP gap: 0.0
 ====================================================================================
 |vehicle no.  |time         |node no.     |cargo        |X            |Y           
 ------------------------------------------------------------------------------------

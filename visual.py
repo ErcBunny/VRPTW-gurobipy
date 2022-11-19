@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+
 def pretty_print(
     title: str,
     customer_quantity: int,
@@ -12,7 +13,8 @@ def pretty_print(
     cost_per_distance: float,
     time_per_distance: float,
     solver_runtime: float,
-    chrono_info: list
+    chrono_info: list,
+    mip_gap: float,
 ):
 
     V = range(vehicle_quantity)
@@ -32,6 +34,7 @@ def pretty_print(
     print("solver runtime:", solver_runtime, file=f)
     if(is_feasible):
         print("objective function value:", objective_value, file=f)
+        print("MIP gap:", mip_gap, file=f)
         print("====================================================================================", file=f)
         print("{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format("|vehicle no.", "|time", "|node no.", "|cargo", "|X", "|Y"), file=f)
         print("------------------------------------------------------------------------------------", file=f)
@@ -52,7 +55,6 @@ def pretty_print(
                 print("------------------------------------------------------------------------------------", file=f)
     
 
-
 def plot_solution(
     title: str,
     is_feasible: bool,
@@ -67,7 +69,9 @@ def plot_solution(
     vehicle_capacity: float,
     cost_per_distance: float,
     time_per_distance: float,
-    solver_runtime: float
+    solver_runtime: float,
+    mip_gap: float,
+    show_plot: bool
 ):
     """
     if the problem is feasible, plot all the results
@@ -176,7 +180,8 @@ def plot_solution(
         cost_per_distance,
         time_per_distance,
         solver_runtime,
-        chrono_info
+        chrono_info,
+        mip_gap
     )
 
     plt.subplot(1, 3, 1)
@@ -198,4 +203,5 @@ def plot_solution(
     plt.ylabel("Cargo")
     plt.title("Cargo - Time")
 
-    plt.show()
+    if(show_plot):
+        plt.show()
