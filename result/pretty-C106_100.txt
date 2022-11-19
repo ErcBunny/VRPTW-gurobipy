@@ -6,5 +6,5 @@ vehicle capacity: 200.0
 cost per distance: 1.0
 time per distance: 1.0
 ====================================================================================
-feasibile: False
+feasible: False
 solver runtime: 3600.027414083481

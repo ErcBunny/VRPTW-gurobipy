@@ -3,10 +3,10 @@ C202_100
 customer quantity: 100
 vehicle quantity: 25
 vehicle capacity: 700.0
-cost per distance: 1
-time per distance: 1
+cost per distance: 1.0
+time per distance: 1.0
 ====================================================================================
-feasibile: True
+feasible: True
 solver runtime: 3600.06787610054
 objective function value: 591.5565566715017
 MIP gap: 0.08028514492619605

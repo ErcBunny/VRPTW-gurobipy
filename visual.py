@@ -30,7 +30,7 @@ def pretty_print(
     print("cost per distance:", cost_per_distance, file=f)
     print("time per distance:", time_per_distance, file=f)
     print("====================================================================================", file=f)
-    print("feasibile:", is_feasible, file=f)
+    print("feasible:", is_feasible, file=f)
     print("solver runtime:", solver_runtime, file=f)
     if(is_feasible):
         print("objective function value:", objective_value, file=f)

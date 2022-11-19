@@ -6,7 +6,7 @@ vehicle capacity: 200.0
 cost per distance: 1.0
 time per distance: 1.0
 ====================================================================================
-feasibile: True
+feasible: True
 solver runtime: 57.749927043914795
 objective function value: 828.9368669428344
 MIP gap: 0.0
