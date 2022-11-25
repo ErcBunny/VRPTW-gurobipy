@@ -1,6 +1,6 @@
-# VRP with Vehicle Capacity and Time Window Constraints
+# **VRPTW-gurobipy**: Solving the Solomon VRPTW with direct MIP formulation using gurobipy
 
-**VRPTW-gurobipy**: Solving the Solomon VRPTW with direct MIP formulation using gurobipy.
+VRPTW stands for "Capacitated Vehicle Routing Problem with Time Windows".
 
 ![Solomon C101_100](./result/fig/C101_100.png)
 ![Solomon RC101_100](./result/fig/RC101_100.png)
