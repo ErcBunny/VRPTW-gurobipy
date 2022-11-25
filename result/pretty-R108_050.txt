@@ -1,0 +1,10 @@
+R108_050
+====================================================================================
+customer quantity: 50
+vehicle quantity: 25
+vehicle capacity: 200.0
+cost per distance: 1
+time per distance: 1
+====================================================================================
+feasible: False
+solver runtime: 3600.018863916397

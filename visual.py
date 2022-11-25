@@ -87,8 +87,9 @@ def plot_solution(
     N = range(node_quantity)
     V = range(vehicle_quantity)
 
-    plt.figure(title)
-    M = ["o", "s", "D", "P", "X", "^", "v"]
+    if(show_plot):
+        plt.figure(title)
+        M = ["o", "s", "D", "P", "X", "^", "v"]
 
     chrono_info = []
 
@@ -130,9 +131,10 @@ def plot_solution(
 
             x = coordinate_reordered[k][:, 0]
             y = coordinate_reordered[k][:, 1]
-            if(x.shape[0] > 2):
-                plt.subplot(1, 3, 1)
-                plt.plot(x, y, label="vehicle " + str(k), marker=M[k // 10])
+            if(show_plot):
+                if(x.shape[0] > 2):
+                    plt.subplot(1, 3, 1)
+                    plt.plot(x, y, label="vehicle " + str(k), marker=M[k // 10])
 
         for k in V:
             
@@ -151,24 +153,26 @@ def plot_solution(
             t = chrono_info[k][:, 0]
             node = chrono_info[k][:, 1]
             cargo = chrono_info[k][:, 2]
-            if(t.shape[0] > 2):
-                plt.subplot(1, 3, 2)
-                plt.plot(t, node, label="vehicle " + str(k), marker=M[k // 10])
-                plt.legend(loc="upper right")
-                plt.subplot(1, 3, 3)
-                plt.plot(t, cargo, label="vehicle " + str(k), marker=M[k // 10])
-                plt.legend(loc="upper right")
+            if(show_plot):
+                if(t.shape[0] > 2):
+                    plt.subplot(1, 3, 2)
+                    plt.plot(t, node, label="vehicle " + str(k), marker=M[k // 10])
+                    plt.legend(loc="upper right")
+                    plt.subplot(1, 3, 3)
+                    plt.plot(t, cargo, label="vehicle " + str(k), marker=M[k // 10])
+                    plt.legend(loc="upper right")
 
-
-        plt.subplot(1, 3, 1)
-        plt.legend(loc="upper right")
+        if(show_plot):
+            plt.subplot(1, 3, 1)
+            plt.legend(loc="upper right")
 
     else:
 
         x = coordinate[:, 0]
         y = coordinate[:, 1]
-        plt.subplot(1, 3, 1)
-        plt.plot(x, y, "o")
+        if(show_plot):
+            plt.subplot(1, 3, 1)
+            plt.plot(x, y, "o")
 
     pretty_print(
         title,
@@ -184,24 +188,25 @@ def plot_solution(
         mip_gap
     )
 
-    plt.subplot(1, 3, 1)
-    plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
-    plt.grid(True)
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.title("Activated Arcs")
-
-    plt.subplot(1, 3, 2)
-    plt.grid(True)
-    plt.xlabel("t")
-    plt.ylabel("Node")
-    plt.title("Node - Time")
-
-    plt.subplot(1, 3, 3)
-    plt.grid(True)
-    plt.xlabel("t")
-    plt.ylabel("Cargo")
-    plt.title("Cargo - Time")
-
     if(show_plot):
+
+        plt.subplot(1, 3, 1)
+        plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
+        plt.grid(True)
+        plt.xlabel("X")
+        plt.ylabel("Y")
+        plt.title("Activated Arcs")
+
+        plt.subplot(1, 3, 2)
+        plt.grid(True)
+        plt.xlabel("t")
+        plt.ylabel("Node")
+        plt.title("Node - Time")
+
+        plt.subplot(1, 3, 3)
+        plt.grid(True)
+        plt.xlabel("t")
+        plt.ylabel("Cargo")
+        plt.title("Cargo - Time")
+
         plt.show()

@@ -15,20 +15,23 @@ def solve_solomon(setname: str, cpd: float, tpd: float, big_m: float, tlimit: fl
 
     I = range(start, end + 1)
     for i in I:
+        print("======================================================")
+        print(setname, i)
+        print("======================================================")
         if i < 10:
-            xmlpath_25 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + "0" + str(i) + "_025.xml"
-            xmlpath_50 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + "0" + str(i) + "_050.xml"
-            xmlpath_100 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + "0" + str(i) + "_100.xml"
-            solve_and_save(xmlpath_25, cpd, tpd, big_m, tlimit, setname.capitalize() + "0" + str(i) + "_025")
-            solve_and_save(xmlpath_50, cpd, tpd, big_m, tlimit, setname.capitalize() + "0" + str(i) + "_050")
-            solve_and_save(xmlpath_100, cpd, tpd, big_m, tlimit, setname.capitalize() + "0" + str(i) + "_100")
+            xmlpath_25 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + "0" + str(i) + "_025.xml"
+            xmlpath_50 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + "0" + str(i) + "_050.xml"
+            xmlpath_100 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + "0" + str(i) + "_100.xml"
+            solve_and_save(xmlpath_25, cpd, tpd, big_m, tlimit, setname.upper() + "0" + str(i) + "_025")
+            solve_and_save(xmlpath_50, cpd, tpd, big_m, tlimit, setname.upper() + "0" + str(i) + "_050")
+            solve_and_save(xmlpath_100, cpd, tpd, big_m, tlimit, setname.upper() + "0" + str(i) + "_100")
         else:
-            xmlpath_25 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + str(i) + "_025.xml"
-            xmlpath_50 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + str(i) + "_050.xml"
-            xmlpath_100 = "./dataset/solomon-1987-" + setname + "/" + setname.capitalize() + str(i) + "_100.xml"
-            solve_and_save(xmlpath_25, cpd, tpd, big_m, tlimit, setname.capitalize() + str(i) + "_025")
-            solve_and_save(xmlpath_50, cpd, tpd, big_m, tlimit, setname.capitalize() + str(i) + "_050")
-            solve_and_save(xmlpath_100, cpd, tpd, big_m, tlimit, setname.capitalize() + str(i) + "_100")
+            xmlpath_25 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + str(i) + "_025.xml"
+            xmlpath_50 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + str(i) + "_050.xml"
+            xmlpath_100 = "./dataset/solomon-1987-" + setname + "/" + setname.upper() + str(i) + "_100.xml"
+            solve_and_save(xmlpath_25, cpd, tpd, big_m, tlimit, setname.upper() + str(i) + "_025")
+            solve_and_save(xmlpath_50, cpd, tpd, big_m, tlimit, setname.upper() + str(i) + "_050")
+            solve_and_save(xmlpath_100, cpd, tpd, big_m, tlimit, setname.upper() + str(i) + "_100")
 
 
 def solve_simple_test():
@@ -46,6 +49,6 @@ if __name__ == "__main__":
     solve_solomon("c2", 1, 1, 1e6, 3600, 1, 8)
     solve_solomon("r1", 1, 1, 1e6, 3600, 1, 12)
     solve_solomon("r2", 1, 1, 1e6, 3600, 1, 11)
-    solve_solomon("rc1", 1, 1, 1e6, 3600, 1, 8)
+    solve_solomon("rc1", 1, 1, 1e6, 3600, 1, 3)
     solve_solomon("rc2", 1, 1, 1e6, 3600, 1, 8)
 
