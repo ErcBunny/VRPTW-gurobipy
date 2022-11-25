@@ -3,8 +3,8 @@ R208_100
 customer quantity: 100
 vehicle quantity: 25
 vehicle capacity: 1000.0
-cost per distance: 1
-time per distance: 1
+cost per distance: 1.0
+time per distance: 1.0
 ====================================================================================
 feasible: False
 solver runtime: 3600.069300889969

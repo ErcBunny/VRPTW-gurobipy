@@ -1,4 +1,5 @@
-from core import load_dataset, solve_VRPTW, save_raw_result, load_raw_result
+from core import solve_VRPTW
+from fileutil import load_dataset, save_raw_result
 from visual import plot_solution
 
 
@@ -51,4 +52,3 @@ if __name__ == "__main__":
     solve_solomon("r2", 1, 1, 1e6, 3600, 1, 11)
     solve_solomon("rc1", 1, 1, 1e6, 3600, 1, 3)
     solve_solomon("rc2", 1, 1, 1e6, 3600, 1, 8)
-

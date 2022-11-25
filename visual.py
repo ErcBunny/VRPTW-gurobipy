@@ -1,59 +1,10 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 
+import matplotlib.pyplot as plt
+import numpy as np
 
-def pretty_print(
-    title: str,
-    customer_quantity: int,
-    is_feasible: bool,
-    objective_value: float,
-    vehicle_quantity: float,
-    vehicle_capacity: float,
-    cost_per_distance: float,
-    time_per_distance: float,
-    solver_runtime: float,
-    chrono_info: list,
-    mip_gap: float,
-):
+from fileutil import pretty_print
 
-    V = range(vehicle_quantity)
-
-    if(not os.path.exists("./result")):
-        os.mkdir("result")
-    f = open("./result/pretty-" + title + ".txt", "w")
-    print(title, file=f)
-    print("====================================================================================", file=f)
-    print("customer quantity:", customer_quantity, file=f)
-    print("vehicle quantity:", vehicle_quantity, file=f)
-    print("vehicle capacity:", vehicle_capacity, file=f)
-    print("cost per distance:", cost_per_distance, file=f)
-    print("time per distance:", time_per_distance, file=f)
-    print("====================================================================================", file=f)
-    print("feasible:", is_feasible, file=f)
-    print("solver runtime:", solver_runtime, file=f)
-    if(is_feasible):
-        print("objective function value:", objective_value, file=f)
-        print("MIP gap:", mip_gap, file=f)
-        print("====================================================================================", file=f)
-        print("{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format("|vehicle no.", "|time", "|node no.", "|cargo", "|X", "|Y"), file=f)
-        print("------------------------------------------------------------------------------------", file=f)
-        for k in V:
-            if(chrono_info[k].shape[0] > 2):
-                for i in range(chrono_info[k].shape[0]):
-                    print(
-                        "{:<13} {:<13} {:<13} {:<13} {:<13} {:<13}".format(
-                            "|" + str(k),
-                            "|" + str(round(chrono_info[k][i, 0], 3)),
-                            "|" + str(int(chrono_info[k][i, 1])),
-                            "|" + str(chrono_info[k][i, 2]),
-                            "|" + str(chrono_info[k][i, 3]),
-                            "|" + str(chrono_info[k][i, 4])
-                        ),
-                        file=f
-                    )
-                print("------------------------------------------------------------------------------------", file=f)
-    
 
 def plot_solution(
     title: str,
@@ -87,9 +38,11 @@ def plot_solution(
     N = range(node_quantity)
     V = range(vehicle_quantity)
 
-    if(show_plot):
-        plt.figure(title)
-        M = ["o", "s", "D", "P", "X", "^", "v"]
+    
+    px = 1/plt.rcParams['figure.dpi']
+    plt.figure(title, figsize=(2700/1.5*px, 900/1.5*px))
+    plt.rcParams["font.family"] = "Times New Roman"
+    M = ["o", "s", "D", "P", "X", "^", "v"]
 
     chrono_info = []
 
@@ -131,10 +84,9 @@ def plot_solution(
 
             x = coordinate_reordered[k][:, 0]
             y = coordinate_reordered[k][:, 1]
-            if(show_plot):
-                if(x.shape[0] > 2):
-                    plt.subplot(1, 3, 1)
-                    plt.plot(x, y, label="vehicle " + str(k), marker=M[k // 10])
+            if(x.shape[0] > 2):
+                plt.subplot(1, 3, 1)
+                plt.plot(x, y, label="vehicle " + str(k), marker=M[k // 10])
 
         for k in V:
             
@@ -153,26 +105,23 @@ def plot_solution(
             t = chrono_info[k][:, 0]
             node = chrono_info[k][:, 1]
             cargo = chrono_info[k][:, 2]
-            if(show_plot):
-                if(t.shape[0] > 2):
-                    plt.subplot(1, 3, 2)
-                    plt.plot(t, node, label="vehicle " + str(k), marker=M[k // 10])
-                    plt.legend(loc="upper right")
-                    plt.subplot(1, 3, 3)
-                    plt.plot(t, cargo, label="vehicle " + str(k), marker=M[k // 10])
-                    plt.legend(loc="upper right")
+            if(t.shape[0] > 2):
+                plt.subplot(1, 3, 2)
+                plt.plot(t, node, label="vehicle " + str(k), marker=M[k // 10])
+                plt.legend(loc="upper right")
+                plt.subplot(1, 3, 3)
+                plt.plot(t, cargo, label="vehicle " + str(k), marker=M[k // 10])
+                plt.legend(loc="upper right")
 
-        if(show_plot):
-            plt.subplot(1, 3, 1)
-            plt.legend(loc="upper right")
+        plt.subplot(1, 3, 1)
+        plt.legend(loc="upper right")
 
     else:
 
         x = coordinate[:, 0]
         y = coordinate[:, 1]
-        if(show_plot):
-            plt.subplot(1, 3, 1)
-            plt.plot(x, y, "o")
+        plt.subplot(1, 3, 1)
+        plt.plot(x, y, "o")
 
     pretty_print(
         title,
@@ -188,25 +137,32 @@ def plot_solution(
         mip_gap
     )
 
+
+    plt.subplot(1, 3, 1)
+    plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
+    plt.grid(True)
+    plt.xlabel("X")
+    plt.ylabel("Y")
+    plt.title("Activated Arcs")
+
+    plt.subplot(1, 3, 2)
+    plt.grid(True)
+    plt.xlabel("t")
+    plt.ylabel("Node")
+    plt.title("Node - Time")
+
+    plt.subplot(1, 3, 3)
+    plt.grid(True)
+    plt.xlabel("t")
+    plt.ylabel("Cargo")
+    plt.title("Cargo - Time")
+
+    plt.tight_layout()
+
+    if(not os.path.exists("./result/fig")):
+        os.mkdir("./result/fig")
+    
+    plt.savefig("./result/fig/" + title + ".pdf")
+
     if(show_plot):
-
-        plt.subplot(1, 3, 1)
-        plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
-        plt.grid(True)
-        plt.xlabel("X")
-        plt.ylabel("Y")
-        plt.title("Activated Arcs")
-
-        plt.subplot(1, 3, 2)
-        plt.grid(True)
-        plt.xlabel("t")
-        plt.ylabel("Node")
-        plt.title("Node - Time")
-
-        plt.subplot(1, 3, 3)
-        plt.grid(True)
-        plt.xlabel("t")
-        plt.ylabel("Cargo")
-        plt.title("Cargo - Time")
-
         plt.show()
