@@ -1,6 +1,12 @@
 # VRP with Vehicle Capacity and Time Window Constraints
 
-## Setting up VRPTW-gurobipy
+![Solomon C101_100](./result/fig/C101_100.pdf)
+
+![Solomon R101_100](./result/fig/R101_100.pdf)
+
+VRPTW-gurobipy: Solving the Solomon VRPTW with direct MIP formulation using gurobipy.
+
+## Setting up
 
 ```
 pip3 install numpy gurobipy matplotlib tabulate
