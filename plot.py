@@ -13,36 +13,36 @@ def load_and_plot(txtpath: str, show=True):
 
 if __name__ == "__main__":
 
-    # # plot and save figure, but do not show
-    # print("generating figures, check ./result/fig/. These figures should be combined with 'pretty' txt files")
-    # process = []
-    # for i in os.listdir("./result"):
-    #     if(i[0:3] == "raw"):
-    #         p = mp.Process(target=load_and_plot, args=("./result/" + str(i), False))
-    #         p.start()
-    #         process.append(p)
+    # plot and save figure, but do not show
+    print("generating figures, check ./result/fig/. These figures should be combined with 'pretty' txt files")
+    process = []
+    for i in os.listdir("./result"):
+        if(i[0:3] == "raw"):
+            p = mp.Process(target=load_and_plot, args=("./result/" + str(i), False))
+            p.start()
+            process.append(p)
 
-    # for p in process:
-    #     p.join()
+    for p in process:
+        p.join()
 
-    # # plot selected ones
-    # print("showing results of small scenarios")
-    # process = []
+    # plot selected ones
+    print("showing results of small scenarios")
+    process = []
 
-    # p = mp.Process(target=load_and_plot, args=("./result/raw-TW10-TPD0.5.txt",))
-    # process.append(p)
+    p = mp.Process(target=load_and_plot, args=("./result/raw-TW10-TPD0.5.txt",))
+    process.append(p)
 
-    # p = mp.Process(target=load_and_plot, args=("./result/raw-TW10-TPD1.0.txt",))
-    # process.append(p)
+    p = mp.Process(target=load_and_plot, args=("./result/raw-TW10-TPD1.0.txt",))
+    process.append(p)
 
-    # p = mp.Process(target=load_and_plot, args=("./result/raw-TW60-TPD0.5.txt",))
-    # process.append(p)
+    p = mp.Process(target=load_and_plot, args=("./result/raw-TW60-TPD0.5.txt",))
+    process.append(p)
 
-    # p = mp.Process(target=load_and_plot, args=("./result/raw-TW60-TPD1.0.txt",))
-    # process.append(p)
+    p = mp.Process(target=load_and_plot, args=("./result/raw-TW60-TPD1.0.txt",))
+    process.append(p)
 
-    # for p in process:
-    #     p.start()
+    for p in process:
+        p.start()
 
     # update result comparison with SOTA2005
     survey_data, categories = save_result_comparison()
@@ -51,5 +51,5 @@ if __name__ == "__main__":
     # save
     plot_survey(survey_data, categories)
 
-    # for p in process:
-    #     p.join()
+    for p in process:
+        p.join()
