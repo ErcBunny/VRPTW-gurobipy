@@ -40,7 +40,7 @@ def plot_solution(
 
     
     px = 1/plt.rcParams['figure.dpi']
-    plt.figure(title, figsize=(2700/1.5*px, 900/1.5*px))
+    plt.figure(title, figsize=(2700/1.75*px, 900/1.75*px))
     plt.rcParams["font.family"] = "Times New Roman"
     M = ["o", "s", "D", "P", "X", "^", "v"]
 
@@ -141,21 +141,21 @@ def plot_solution(
     plt.subplot(1, 3, 1)
     plt.plot(coordinate[0, 0], coordinate[0, 1], marker="o", color='0.5', markersize=10)
     plt.grid(True)
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.title("Activated Arcs")
+    plt.xlabel("X", fontsize=16)
+    plt.ylabel("Y", fontsize=16)
+    plt.title("Activated Arcs", fontsize=16)
 
     plt.subplot(1, 3, 2)
     plt.grid(True)
-    plt.xlabel("t")
-    plt.ylabel("Node")
-    plt.title("Node - Time")
+    plt.xlabel("t", fontsize=16)
+    plt.ylabel("Node", fontsize=16)
+    plt.title("Node - Time", fontsize=16)
 
     plt.subplot(1, 3, 3)
     plt.grid(True)
-    plt.xlabel("t")
-    plt.ylabel("Cargo")
-    plt.title("Cargo - Time")
+    plt.xlabel("t", fontsize=16)
+    plt.ylabel("Cargo", fontsize=16)
+    plt.title("Cargo - Time", fontsize=16)
 
     plt.tight_layout()
 

@@ -21,10 +21,11 @@ def solve_VRPTW(
 
     time window for node 0 should be [0, 0] and for node n + 1 should be [0, max operating time]
 
-    return: is_feasible, objective value, arc matrix, arrival time matrixd
+    return: is_feasible, objective value, arc matrix, arrival time matrix
 
     """
-
+    
+    # define sets
     node_quantity = coordinate.shape[0]
     customer_quantity = node_quantity - 2
 
@@ -32,6 +33,7 @@ def solve_VRPTW(
     C = range(1, customer_quantity + 1)
     V = range(vehicle_quantity)
 
+    # calculate traveling distance and time from node to node
     distance = np.zeros([node_quantity, node_quantity])
     for i in N:
         for j in N:
@@ -45,6 +47,7 @@ def solve_VRPTW(
         for j in N:
             travel_time[i, j] = time_per_distance * np.hypot(coordinate[i, 0] - coordinate[j, 0], coordinate[i, 1] - coordinate[j, 1])
 
+    # writing mathematical formulation in code
     model = Model("VRPTW")
     x = model.addVars(node_quantity, node_quantity, vehicle_quantity, vtype=GRB.BINARY)
     s = model.addVars(node_quantity, vehicle_quantity, vtype=GRB.CONTINUOUS)
@@ -61,9 +64,11 @@ def solve_VRPTW(
     model.addConstrs(s[i, k] <= time_window[i, 1] for i in N for k in V)
     model.addConstrs(s[i, k] + travel_time[i, j] + service_duration[i] - big_m * (1 - x[i, j, k]) <= s[j, k] for i in N for j in N for k in V)
 
+    # set timelimit and start solving
     model.Params.Timelimit = timelimit
     model.optimize()
 
+    # obtain the results
     is_feasible = True
     obj = 0
     runtime = model.Runtime

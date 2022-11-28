@@ -280,7 +280,7 @@ def load_pretty_result(txtpath: str):
 def append_row_names(table: np.ndarray, setname: str):
     i = 0
     while(i < table.shape[0]):
-        if i//3 < 10:
+        if i//3 < 9:
             table[i, 0] = setname.upper() + "0" + str(i//3 + 1) + "_025"
             table[i + 1, 0] = setname.upper() + "0" + str(i//3 + 1) + "_050"
             table[i + 2, 0] = setname.upper() + "0" + str(i//3 + 1) + "_100"
@@ -328,6 +328,8 @@ def save_result_comparison():
     for i in files:
         if(i[0:6] == "pretty"):
             v, d, t, g = load_pretty_result("./result/" + str(i))
+            t = round(t, 1)
+            g = round(g, 3)
             if(i[0:9] == "pretty-C1"):
                 v_c1.append(v)
                 d_c1.append(d)
@@ -418,7 +420,7 @@ def save_result_comparison():
     table_rc2 = np.hstack((name_rc2, v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2))
     append_row_names(table_rc2, "rc2")
 
-    table_header = ["Problem", "Vehicle", "Vehicle (SOTA)", "Distance", "Distance (SOTA)", "MIP Gap", "Solver Runtime"]
+    table_header = ["Problem", "V.", "V. (S)", "Dist.", "Dist. (S)", "MIP Gap", "Solver Runtime"]
     if(not os.path.exists("./result")):
         os.mkdir("result")
     f = open("./result/comparision.txt", "w")
@@ -427,30 +429,34 @@ def save_result_comparison():
     print(tabulate(table_c1, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_c1, table_header, tablefmt="latex"), file=f)
+    print('\n', file=f)
 
     print("=========================================================================================================", file=f)
     print(tabulate(table_c2, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_c2, table_header, tablefmt="latex"), file=f)
+    print('\n', file=f)
 
     print("=========================================================================================================", file=f)
     print(tabulate(table_r1, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_r1, table_header, tablefmt="latex"), file=f)
+    print('\n', file=f)
 
     print("=========================================================================================================", file=f)
     print(tabulate(table_r2, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_r2, table_header, tablefmt="latex"), file=f)
+    print('\n', file=f)
 
     print("=========================================================================================================", file=f)
     print(tabulate(table_rc1, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_rc1, table_header, tablefmt="latex"), file=f)
+    print('\n', file=f)
 
     print("=========================================================================================================", file=f)
     print(tabulate(table_rc2, table_header), file=f)
     print('\n', file=f)
     print(tabulate(table_rc2, table_header, tablefmt="latex"), file=f)
-
-    f.close()
+    print('\n', file=f)
