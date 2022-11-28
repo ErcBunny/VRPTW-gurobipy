@@ -291,6 +291,48 @@ def append_row_names(table: np.ndarray, setname: str):
         i += 3
 
 
+def relative_err(a, b):
+    return (a - b) / a
+
+
+def survey_results(table: np.ndarray, normalize: bool):
+
+    nan_opt = 0
+    nan_nan = 0
+    inc_nan = 0
+    inc_opt = 0
+    popt_opt = 0
+    opt_opt = 0
+
+    total = 0
+
+    for i in range(table.shape[0]):
+        total += 1
+        if(math.isnan(table[i, 0])):
+            if(math.isnan(table[i, 1])):
+                nan_nan += 1
+            else:
+                nan_opt += 1
+        else:
+            if(math.isnan(table[i, 1])):
+                inc_nan += 1
+            else:
+                if(table[i, 4] == 0):
+                    opt_opt += 1
+                else:
+                    if(table[i, 0] == table[i, 1] and relative_err(table[i, 2], table[i, 3]) < 0.02):
+                        popt_opt += 1
+                    else:
+                        inc_opt += 1
+    
+    assert total == nan_opt + nan_nan + inc_nan + inc_opt + popt_opt + opt_opt
+
+    if(normalize):
+        return [nan_opt/total, nan_nan/total, inc_nan/total, inc_opt/total, popt_opt/total, opt_opt/total]
+    else:
+        return [nan_opt, nan_nan, inc_nan, inc_opt, popt_opt, opt_opt]
+
+
 def save_result_comparison():
     dist_c1, v_num_c1, dist_c2, v_num_c2, dist_r1, v_num_r1, dist_r2, v_num_r2, dist_rc1, v_num_rc1, dist_rc2, v_num_rc2 = SOTA2005.get_results()
     
@@ -420,6 +462,35 @@ def save_result_comparison():
     table_rc2 = np.hstack((name_rc2, v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2))
     append_row_names(table_rc2, "rc2")
 
+    category_names = ["NaN/Opt", "NaN/NaN", "Inc/NaN", "Inc/Opt", "Probably Opt/Opt", "Opt/Opt"]
+
+    result_survey = {
+        "C1": survey_results(np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)), True),
+        "C2": survey_results(np.hstack((v_c2, v_num_c2, d_c2, dist_c2, g_c2, t_c2)), True),
+        "R1": survey_results(np.hstack((v_r1, v_num_r1, d_r1, dist_r1, g_r1, t_r1)), True),
+        "R2": survey_results(np.hstack((v_r2, v_num_r2, d_r2, dist_r2, g_r2, t_r2)), True),
+        "RC1": survey_results(np.hstack((v_rc1, v_num_rc1, d_rc1, dist_rc1, g_rc1, t_rc1)), True),
+        "RC2": survey_results(np.hstack((v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2)), True)
+    }
+
+    result_survey_data_count = np.array([
+        survey_results(np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)), False),
+        survey_results(np.hstack((v_c2, v_num_c2, d_c2, dist_c2, g_c2, t_c2)), False),
+        survey_results(np.hstack((v_r1, v_num_r1, d_r1, dist_r1, g_r1, t_r1)), False),
+        survey_results(np.hstack((v_r2, v_num_r2, d_r2, dist_r2, g_r2, t_r2)), False),
+        survey_results(np.hstack((v_rc1, v_num_rc1, d_rc1, dist_rc1, g_rc1, t_rc1)), False),
+        survey_results(np.hstack((v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2)), False)
+    ])
+
+    result_survey_data_norm = np.array([
+        survey_results(np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)), True),
+        survey_results(np.hstack((v_c2, v_num_c2, d_c2, dist_c2, g_c2, t_c2)), True),
+        survey_results(np.hstack((v_r1, v_num_r1, d_r1, dist_r1, g_r1, t_r1)), True),
+        survey_results(np.hstack((v_r2, v_num_r2, d_r2, dist_r2, g_r2, t_r2)), True),
+        survey_results(np.hstack((v_rc1, v_num_rc1, d_rc1, dist_rc1, g_rc1, t_rc1)), True),
+        survey_results(np.hstack((v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2)), True)
+    ])
+
     table_header = ["Problem", "V.", "V. (S)", "Dist.", "Dist. (S)", "MIP Gap", "Solver Runtime"]
     if(not os.path.exists("./result")):
         os.mkdir("result")
@@ -460,3 +531,15 @@ def save_result_comparison():
     print('\n', file=f)
     print(tabulate(table_rc2, table_header, tablefmt="latex"), file=f)
     print('\n', file=f)
+
+    print("=========================================================================================================", file=f)
+    print(tabulate(np.array(result_survey_data_count), category_names), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_data_count), category_names, tablefmt="latex"), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_data_norm), category_names), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_data_norm), category_names, tablefmt="latex"), file=f)
+    print('\n', file=f)
+
+    return result_survey, category_names
