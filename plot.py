@@ -45,11 +45,12 @@ if __name__ == "__main__":
         p.start()
 
     # update result comparison with SOTA2005
-    survey_data, categories = save_result_comparison()
+    survey_data, survey_data_size, categories = save_result_comparison()
     print("saved comparison with SOTA2005 to ./result/comparison.txt")
 
     # save
-    plot_survey(survey_data, categories)
+    plot_survey(survey_data, categories, "", 2)
+    plot_survey(survey_data_size, categories, "_size", 1.25)
 
     for p in process:
         p.join()

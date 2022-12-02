@@ -462,7 +462,7 @@ def save_result_comparison():
     table_rc2 = np.hstack((name_rc2, v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2))
     append_row_names(table_rc2, "rc2")
 
-    category_names = ["NaN/Opt", "NaN/NaN", "Inc/NaN", "Inc/Opt", "Probably Opt/Opt", "Opt/Opt"]
+    category_names = ["NaN/Opt", "NaN/NaN", "Inc/NaN", "Inc/Opt", "POpt/Opt", "Opt/Opt"]
 
     result_survey = {
         "C1": survey_results(np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)), True),
@@ -472,6 +472,41 @@ def save_result_comparison():
         "RC1": survey_results(np.hstack((v_rc1, v_num_rc1, d_rc1, dist_rc1, g_rc1, t_rc1)), True),
         "RC2": survey_results(np.hstack((v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2)), True)
     }
+    
+    all_results = np.vstack((
+        np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)),
+        np.hstack((v_c2, v_num_c2, d_c2, dist_c2, g_c2, t_c2)),
+        np.hstack((v_r1, v_num_r1, d_r1, dist_r1, g_r1, t_r1)),
+        np.hstack((v_r2, v_num_r2, d_r2, dist_r2, g_r2, t_r2)),
+        np.hstack((v_rc1, v_num_rc1, d_rc1, dist_rc1, g_rc1, t_rc1)),
+        np.hstack((v_rc2, v_num_rc2, d_rc2, dist_rc2, g_rc2, t_rc2))
+    ))
+
+    all_25 = np.zeros([round(all_results.shape[0]/3), all_results.shape[1]])
+    all_50 = np.zeros([round(all_results.shape[0]/3), all_results.shape[1]])
+    all_100 = np.zeros([round(all_results.shape[0]/3), all_results.shape[1]])
+    for i in range(all_results.shape[0]):
+        if(i%3 == 0):
+            all_25[i//3] = all_results[i]
+        if(i%3 == 1):
+            all_50[i//3] = all_results[i]
+        if(i%3 == 2):
+            all_100[i//3] = all_results[i]
+    result_survey_size = {
+        "25": survey_results(all_25, True),
+        "50": survey_results(all_50, True),
+        "100": survey_results(all_100, True),
+    }
+    result_survey_size_count = np.array([
+        survey_results(all_25, False),
+        survey_results(all_50, False),
+        survey_results(all_100, False)
+    ])
+    result_survey_size_norm = np.array([
+        survey_results(all_25, True),
+        survey_results(all_50, True),
+        survey_results(all_100, True)
+    ])
 
     result_survey_data_count = np.array([
         survey_results(np.hstack((v_c1, v_num_c1, d_c1, dist_c1, g_c1, t_c1)), False),
@@ -541,5 +576,14 @@ def save_result_comparison():
     print('\n', file=f)
     print(tabulate(np.array(result_survey_data_norm), category_names, tablefmt="latex"), file=f)
     print('\n', file=f)
+    print(tabulate(np.array(result_survey_size_count), category_names), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_size_count), category_names, tablefmt="latex"), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_size_norm), category_names), file=f)
+    print('\n', file=f)
+    print(tabulate(np.array(result_survey_size_norm), category_names, tablefmt="latex"), file=f)
+    print('\n', file=f)
+    
 
-    return result_survey, category_names
+    return result_survey, result_survey_size, category_names

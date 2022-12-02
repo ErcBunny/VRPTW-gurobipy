@@ -168,7 +168,7 @@ def plot_solution(
         plt.show()
 
 
-def plot_survey(results, category_names):
+def plot_survey(results, category_names, file_type, height):
     """
     Parameters
     ----------
@@ -186,7 +186,7 @@ def plot_survey(results, category_names):
     data_cum = data.cumsum(axis=1)
     category_colors = plt.colormaps['RdYlGn'](np.linspace(0.15, 0.85, data.shape[1]))
 
-    fig, ax = plt.subplots(figsize=(9, 3))
+    fig, ax = plt.subplots(figsize=(9, height))
     ax.invert_yaxis()
     ax.xaxis.set_visible(False)
     ax.set_xlim(0, np.sum(data, axis=1).max())
@@ -203,6 +203,7 @@ def plot_survey(results, category_names):
     ax.legend(ncol=len(category_names), bbox_to_anchor=(0, 1),
               loc='lower left', fontsize='small')
     
-    plt.savefig("./result/fig/distribution.pdf")
+    plt.tight_layout()
+    plt.savefig("./result/fig/distribution" + file_type + ".pdf")
 
     return fig, ax
